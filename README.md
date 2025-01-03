@@ -1,228 +1,88 @@
-# java-project
-student management system
-#code#
-~~~
-import java.io.*;
-import java.util.*;
 
-class Student implements Serializable {
-    private int rollNumber;
-    private String name;
-    private String course;
-    private int marks;
+##Student Management System#
+Overview
+The Student Management System is a console application built in Java that efficiently manages student records. Users can perform CRUD (Create, Read, Update, Delete) operations on student data. The system features functionalities for adding, viewing, updating, deleting, and searching for students, as well as generating reports. It also ensures data persistence, allowing student records to be saved and reloaded across different application sessions.
 
-    public Student(int rollNumber, String name, String course, int marks) {
-        this.rollNumber = rollNumber;
-        this.name = name;
-        this.course = course;
-        this.marks = marks;
-    }
+#Features
+Add New Student:
+Users can add a new student record by entering the roll number, name, course, and marks.
 
-    public int getRollNumber() {
-        return rollNumber;
-    }
+#View All Students:
+This feature displays a comprehensive list of all student records along with their details.
 
-    public String getName() {
-        return name;
-    }
+#Update Student Information:
+Users can modify an existing student’s name, course, or marks by using their roll number.
 
-    public String getCourse() {
-        return course;
-    }
+#Delete Student Record:
+This option allows users to remove a student record from the system using the roll number.
 
-    public int getMarks() {
-        return marks;
-    }
+#Search for Student:
+Users can search for a student by roll number or name, and the system will display their information if found.
 
-    public void setName(String name) {
-        this.name = name;
-    }
+#Generate Reports:
+The system calculates and presents a report that includes the total number of students, total marks, and average marks.
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
+#Data Persistence:
+All student records are stored in a file (students.dat) to ensure that data is preserved even after the application is closed.
 
-    public void setMarks(int marks) {
-        this.marks = marks;
-    }
+#Code Explanation
+1. Main Class
+The Main class contains the main method, which acts as the entry point for the application. It manages the user interface and menu options.
 
-    @Override
-    public String toString() {
-        return "Roll Number: " + rollNumber + ", Name: " + name + ", Course: " + course + ", Marks: " + marks;
-    }
-}
+2. Student Class
+The Student class serves as a model for student records. It includes:
 
-public class Main {
+Fields: rollNumber, name, course, and marks.
+Getters and setters for encapsulating the data.
+A toString method for displaying student details.
+3. Menu Options
+The program presents a menu with options (1-7) for various features. The user selects an option, and the corresponding method is executed.
 
-    private static final String FILE_NAME = "students.dat";
-    private static List<Student> students = new ArrayList<>();
+4. Methods
+addNewStudent()
+Prompts the user to enter the roll number, name, course, and marks of a new student.
+Creates a Student object and adds it to the list of students.
+viewAllStudents()
+This function goes through the list of students and displays all their records.
+It also takes care of situations where the list might be empty.
+updateStudent()
+This function looks for a student using their roll number.
+It prompts the user to update the student's name, course, or marks.
+deleteStudent()
+This function searches for a student by their roll number.
+If the student is found, it removes them from the list.
+searchStudent()
+This function allows the user to find a student by either roll number or name.
+It shows the details of the student that matches the search criteria.
+generateReport()
+This function calculates the total number of students, their total marks, and the average marks.
+It presents the report in a format that is easy to understand.
+saveStudents()
+This function uses ObjectOutputStream to serialize the list of students and save it to a file named students.dat.
+loadStudents()
+This function uses ObjectInputStream to deserialize and load the list of students from the file when the program starts.
+Usage
+To use the program, run it and select an option from the menu.
+Follow the prompts to add, update, or view student information.
+You can exit the program using option 7, and your data will be saved automatically.
+Technologies Used
+Language: Java
+Persistence: Serialization (File I/O)
+Data Structures: ArrayList
+How to Run
+Compile the program with javac Main.java.
+Run it using java Main.
+Interact with the menu options as needed.
 
-    public static void main(String[] args) {
-        loadStudents();
-        Scanner scanner = new Scanner(System.in);
-        int choice;
 
-        do {
-            System.out.println("\nStudent Management System");
-            System.out.println("1. Add New Student");
-            System.out.println("2. View All Students");
-            System.out.println("3. Update Student Information");
-            System.out.println("4. Delete Student Record");
-            System.out.println("5. Search for Student");
-            System.out.println("6. Generate Report");
-            System.out.println("7. Exit");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    addNewStudent(scanner);
-                    break;
-                case 2:
-                    viewAllStudents();
-                    break;
-                case 3:
-                    updateStudent(scanner);
-                    break;
-                case 4:
-                    deleteStudent(scanner);
-                    break;
-                case 5:
-                    searchStudent(scanner);
-                    break;
-                case 6:
-                    generateReport();
-                    break;
-                case 7:
-                    saveStudents();
-                    System.out.println("Exiting... Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        } while (choice != 7);
-
-        scanner.close();
-    }
-
-    private static void addNewStudent(Scanner scanner) {
-        System.out.print("Enter Roll Number: ");
-        int rollNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Course: ");
-        String course = scanner.nextLine();
-        System.out.print("Enter Marks: ");
-        int marks = scanner.nextInt();
-
-        students.add(new Student(rollNumber, name, course, marks));
-        System.out.println("Student added successfully.");
-    }
-
-    private static void viewAllStudents() {
-        if (students.isEmpty()) {
-            System.out.println("No student records found.");
-            return;
-        }
-
-        System.out.println("\nStudent Records:");
-        for (Student student : students) {
-            System.out.println(student);
-        }
-    }
-
-    private static void updateStudent(Scanner scanner) {
-        System.out.print("Enter Roll Number of the student to update: ");
-        int rollNumber = scanner.nextInt();
-
-        for (Student student : students) {
-            if (student.getRollNumber() == rollNumber) {
-                scanner.nextLine(); // Consume newline
-                System.out.print("Enter New Name: ");
-                student.setName(scanner.nextLine());
-                System.out.print("Enter New Course: ");
-                student.setCourse(scanner.nextLine());
-                System.out.print("Enter New Marks: ");
-                student.setMarks(scanner.nextInt());
-                System.out.println("Student updated successfully.");
-                return;
-            }
-        }
-
-        System.out.println("Student with Roll Number " + rollNumber + " not found.");
-    }
-
-    private static void deleteStudent(Scanner scanner) {
-        System.out.print("Enter Roll Number of the student to delete: ");
-        int rollNumber = scanner.nextInt();
-
-        Iterator<Student> iterator = students.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getRollNumber() == rollNumber) {
-                iterator.remove();
-                System.out.println("Student deleted successfully.");
-                return;
-            }
-        }
-
-        System.out.println("Student with Roll Number " + rollNumber + " not found.");
-    }
-
-    private static void searchStudent(Scanner scanner) {
-        System.out.print("Enter Roll Number or Name to search: ");
-        scanner.nextLine(); // Consume newline
-        String query = scanner.nextLine().toLowerCase();
-
-        for (Student student : students) {
-            if (String.valueOf(student.getRollNumber()).equals(query) || student.getName().toLowerCase().contains(query)) {
-                System.out.println("Student Found: " + student);
-                return;
-            }
-        }
-
-        System.out.println("No student records match your query.");
-    }
-
-    private static void generateReport() {
-        if (students.isEmpty()) {
-            System.out.println("No student records found.");
-            return;
-        }
-
-        int totalMarks = 0;
-        for (Student student : students) {
-            totalMarks += student.getMarks();
-        }
-
-        double averageMarks = (double) totalMarks / students.size();
-        System.out.println("\nReport:");
-        System.out.println("Total Students: " + students.size());
-        System.out.println("Total Marks: " + totalMarks);
-        System.out.println("Average Marks: " + averageMarks);
-    }
-
-    private static void saveStudents() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-            oos.writeObject(students);
-            System.out.println("Student records saved successfully.");
-        } catch (IOException e) {
-            System.out.println("Error saving student records: " + e.getMessage());
-        }
-    }
-
-    private static void loadStudents() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            students = (List<Student>) ois.readObject();
-        } catch (FileNotFoundException e) {
-            System.out.println("No previous student records found. Starting fresh.");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading student records: " + e.getMessage());
-        }
-    }
-}
-~~~
-##output##
-
-[java student management output.pdf](https://github.com/user-attachments/files/18297597/java.student.management.output.pdf)
+##Sample Output
+Student Management System
+1. Add New Student
+2. View All Students
+3. Update Student Information
+4. Delete Student Record
+5. Search for Student
+6. Generate Report
+7. Exit
+Enter your choice:
 
