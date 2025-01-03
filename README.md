@@ -124,3 +124,122 @@ Student Management System
 7. Exit
 Enter your choice:
 
+
+
+
+#project 2
+2. TO DO LIST
+
+Overview
+The To-Do List Application is a command-line program built in Java. It allows users to manage their tasks efficiently by adding, updating, viewing, and organizing tasks. The application ensures data persistence by saving tasks to a file, making it scalable and reusable across sessions. It leverages object-oriented programming principles and serialization for modularity and functionality.
+
+Features
+Add Task
+Users can add new tasks with a description and priority level (High, Medium, Low).
+
+Remove Task
+Users can delete tasks by selecting the corresponding task number from the list.
+
+View Tasks
+Displays all tasks in the system, including their description, priority, and completion status.
+
+Update Task
+Allows users to modify the description and priority of an existing task.
+
+Mark Task as Completed
+Users can mark specific tasks as completed to track progress.
+
+Save and Load Tasks
+Saves the tasks to a file and reloads them upon application startup, ensuring persistence between sessions.
+
+Code Explanation
+Task Class
+Represents a single task.
+Implements Serializable to allow saving and loading tasks from a file.
+Fields:
+
+description: A string describing the task.
+
+priority: A string representing the task's priority (High, Medium, Low).
+
+isCompleted: A boolean indicating whether the task is completed.
+
+Methods:
+Getters and setters for task attributes.
+
+markAsCompleted(): Marks the task as completed.
+
+toString(): Provides a readable representation of the task.
+
+Main Class
+The main entry point of the application that handles user interactions and task management.
+
+Key Methods:
+addTask
+Prompts the user to input a task description and priority, and adds the task to the list.
+
+removeTask
+Displays all tasks, allows the user to select a task by its number, and removes it.
+
+viewTasks
+Displays all tasks with their description, priority, and status.
+
+updateTask
+Enables the user to update the description and priority of a specific task.
+
+markTaskAsCompleted
+Marks a specified task as completed by the user.
+
+saveTasks
+Saves the current task list to a file (tasks.dat) using Java's object serialization.
+
+loadTasks
+Reads tasks from the file at startup. If the file doesn't exist, it initializes an empty task list.
+
+Workflow:
+Tasks are loaded from a file when the application starts.
+The menu is displayed, and the user can perform operations such as adding, removing, or updating tasks.
+Tasks are saved back to the file when the user exits the application.
+How to Run the Application
+Clone the repository:
+bash
+Copy code
+git clone <repository-url>
+cd to-do-list-app
+Compile the Java files:
+bash
+Copy code
+javac Main.java
+Run the application:
+bash
+Copy code
+java Main
+Follow the on-screen menu to manage your tasks.
+File Details
+tasks.dat: A serialized file where tasks are saved and loaded.
+Main.java: Contains the main logic and handles user interactions.
+Task.java: Represents the task model with attributes and methods.
+Example Output
+mathematica
+
+
+
+To-Do List Application
+1. Add Task
+2. Remove Task
+3. View Tasks
+4. Update Task
+5. Mark Task as Completed
+6. Save and Exit
+Enter your choice: 1
+Enter task description: Finish project report
+Enter task priority (High/Medium/Low): High
+Task added successfully.
+
+To-Do List Application
+1. Add Task
+2. Remove Task
+3. View Tasks
+
+
+
